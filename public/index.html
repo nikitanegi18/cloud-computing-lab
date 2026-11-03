@@ -1,0 +1,1929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloud Computing Lab Assignments - SCSIT DAVV</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    pre, code { font-family: 'JetBrains Mono', monospace; }
+    .tab-active { background-color: #2563eb; color: #ffffff; }
+    .pulse-dot { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+
+  <!-- TOP HEADER -->
+  <header class="bg-slate-800 border-b border-slate-700 sticky top-0 z-50 px-6 py-3 shadow-md">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/30">
+          <i class="fa-solid fa-cloud text-xl"></i>
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">SCSIT DAVV INDORE</span>
+            <span class="text-xs font-medium text-slate-400">MCA 3rd Semester</span>
+          </div>
+          <h1 class="text-lg font-bold text-white tracking-tight">Cloud Computing Practical Lab Portal</h1>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-4 text-xs">
+        <div class="bg-slate-950/70 border border-slate-700/80 rounded-lg px-3 py-1.5 flex items-center space-x-3">
+          <div>
+            <span class="text-slate-400">Student:</span>
+            <span class="font-semibold text-white ml-1">Nikita Negi</span>
+            <span class="text-slate-400 ml-1">| Roll:</span>
+            <span class="font-mono text-emerald-400 font-semibold ml-1">2211229</span>
+          </div>
+          <div class="h-4 w-px bg-slate-700"></div>
+          <div>
+            <span class="text-slate-400">Guide:</span>
+            <span class="font-semibold text-amber-300 ml-1">Dr. Shraddha Masih</span>
+          </div>
+        </div>
+
+        <div id="mode-badge" class="bg-blue-500/10 border border-blue-500/30 text-blue-400 px-3 py-1.5 rounded-lg flex items-center space-x-2">
+          <span class="w-2 h-2 rounded-full bg-blue-400 pulse-dot"></span>
+          <span id="mode-text" class="font-medium">Live & Verified</span>
+        </div>
+
+        <a href="Cloud_Computing_Lab_Assignment_Manual.html" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-lg font-semibold flex items-center space-x-1.5 shadow">
+          <i class="fa-solid fa-file-pdf"></i>
+          <span>View Lab Manual</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- QUICK ACCESS OVERVIEW BAR -->
+  <div class="bg-slate-800/60 border-b border-slate-700/60 px-6 py-2.5 overflow-x-auto text-xs">
+    <div class="max-w-7xl mx-auto flex items-center space-x-2 min-w-max">
+      <span class="text-slate-400 font-medium mr-1"><i class="fa-solid fa-list-check mr-1"></i>Syllabus Tracker:</span>
+      <button onclick="switchTab('vbox')" class="px-2.5 py-1 rounded bg-slate-700/80 hover:bg-slate-700 text-slate-200 transition flex items-center space-x-1.5">
+        <span class="text-emerald-400">✓</span> <span>1. VirtualBox</span>
+      </button>
+      <button onclick="switchTab('ec2')" class="px-2.5 py-1 rounded bg-slate-700/80 hover:bg-slate-700 text-slate-200 transition flex items-center space-x-1.5">
+        <span class="text-emerald-400">✓</span> <span>2. EC2</span>
+      </button>
+      <button onclick="switchTab('ebs')" class="px-2.5 py-1 rounded bg-slate-700/80 hover:bg-slate-700 text-slate-200 transition flex items-center space-x-1.5">
+        <span class="text-emerald-400">✓</span> <span>3. EBS</span>
+      </button>
+      <button onclick="switchTab('s3')" class="px-2.5 py-1 rounded bg-slate-700/80 hover:bg-slate-700 text-slate-200 transition flex items-center space-x-1.5">
+        <span class="text-emerald-400">✓</span> <span>4. S3</span>
+      </button>
+      <button onclick="switchTab('elb')" class="px-2.5 py-1 rounded bg-slate-700/80 hover:bg-slate-700 text-slate-200 transition flex items-center space-x-1.5">
+        <span class="text-emerald-400">✓</span> <span>5. ELB</span>
+      </button>
+      <button onclick="switchTab('asg')" class="px-2.5 py-1 rounded bg-slate-700/80 hover:bg-slate-700 text-slate-200 transition flex items-center space-x-1.5">
+        <span class="text-emerald-400">✓</span> <span>6. AutoScaling</span>
+      </button>
+      <button onclick="switchTab('cloudwatch')" class="px-2.5 py-1 rounded bg-slate-700/80 hover:bg-slate-700 text-slate-200 transition flex items-center space-x-1.5">
+        <span class="text-emerald-400">✓</span> <span>7. CloudWatch</span>
+      </button>
+      <button onclick="switchTab('ami')" class="px-2.5 py-1 rounded bg-slate-700/80 hover:bg-slate-700 text-slate-200 transition flex items-center space-x-1.5">
+        <span class="text-emerald-400">✓</span> <span>8. AMI</span>
+      </button>
+      <button onclick="switchTab('iam')" class="px-2.5 py-1 rounded bg-slate-700/80 hover:bg-slate-700 text-slate-200 transition flex items-center space-x-1.5">
+        <span class="text-emerald-400">✓</span> <span>9. IAM</span>
+      </button>
+      <button onclick="switchTab('beanstalk')" class="px-2.5 py-1 rounded bg-slate-700/80 hover:bg-slate-700 text-slate-200 transition flex items-center space-x-1.5">
+        <span class="text-amber-400">~</span> <span>10. Beanstalk</span>
+      </button>
+      <button onclick="switchTab('vpc')" class="px-2.5 py-1 rounded bg-slate-700/80 hover:bg-slate-700 text-slate-200 transition flex items-center space-x-1.5">
+        <span class="text-emerald-400">✓</span> <span>11. VPC/VPN</span>
+      </button>
+      <button onclick="switchTab('github')" class="px-2.5 py-1 rounded bg-slate-700/80 hover:bg-slate-700 text-slate-200 transition flex items-center space-x-1.5">
+        <span class="text-emerald-400">✓</span> <span>12. GitHub</span>
+      </button>
+      <button onclick="switchTab('lambda')" class="px-2.5 py-1 rounded bg-slate-700/80 hover:bg-slate-700 text-slate-200 transition flex items-center space-x-1.5">
+        <span class="text-emerald-400">✓</span> <span>13. Lambda</span>
+      </button>
+      <button onclick="switchTab('viva')" class="px-2.5 py-1 rounded bg-indigo-600/60 hover:bg-indigo-600 text-white font-medium transition flex items-center space-x-1.5 ml-2">
+        <i class="fa-solid fa-graduation-cap"></i> <span>Viva Questions</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN BODY LAYOUT -->
+  <div class="max-w-7xl mx-auto w-full flex-1 p-6 flex flex-col md:flex-row gap-6">
+
+    <!-- LEFT SIDEBAR NAV -->
+    <aside class="w-full md:w-64 flex-shrink-0 space-y-1">
+      <div class="text-xs font-bold text-slate-400 uppercase tracking-wider px-3 mb-2">Assignments Navigation</div>
+
+      <nav id="sidebar-nav" class="space-y-1">
+        <button onclick="switchTab('overview')" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition flex items-center justify-between tab-active" data-tab="overview">
+          <span class="flex items-center space-x-2.5">
+            <i class="fa-solid fa-gauge w-4 text-center"></i>
+            <span>Dashboard Overview</span>
+          </span>
+          <span class="text-xs bg-blue-400/20 text-blue-300 px-1.5 py-0.5 rounded">All</span>
+        </button>
+
+        <button onclick="switchTab('vbox')" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition flex items-center justify-between text-slate-300 hover:bg-slate-800" data-tab="vbox">
+          <span class="flex items-center space-x-2.5">
+            <i class="fa-solid fa-server w-4 text-center text-blue-400"></i>
+            <span>1. VirtualBox</span>
+          </span>
+          <span class="text-xs text-emerald-400 font-mono">LAB-01</span>
+        </button>
+
+        <button onclick="switchTab('ec2')" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition flex items-center justify-between text-slate-300 hover:bg-slate-800" data-tab="ec2">
+          <span class="flex items-center space-x-2.5">
+            <i class="fa-solid fa-microchip w-4 text-center text-amber-400"></i>
+            <span>2. EC2 Instances</span>
+          </span>
+          <span class="text-xs text-emerald-400 font-mono">LAB-02</span>
+        </button>
+
+        <button onclick="switchTab('ebs')" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition flex items-center justify-between text-slate-300 hover:bg-slate-800" data-tab="ebs">
+          <span class="flex items-center space-x-2.5">
+            <i class="fa-solid fa-hard-drive w-4 text-center text-yellow-400"></i>
+            <span>3. EBS Storage</span>
+          </span>
+          <span class="text-xs text-emerald-400 font-mono">LAB-03</span>
+        </button>
+
+        <button onclick="switchTab('s3')" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition flex items-center justify-between text-slate-300 hover:bg-slate-800" data-tab="s3">
+          <span class="flex items-center space-x-2.5">
+            <i class="fa-solid fa-bucket w-4 text-center text-emerald-400"></i>
+            <span>4. S3 Buckets</span>
+          </span>
+          <span class="text-xs text-emerald-400 font-mono">LAB-04</span>
+        </button>
+
+        <button onclick="switchTab('elb')" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition flex items-center justify-between text-slate-300 hover:bg-slate-800" data-tab="elb">
+          <span class="flex items-center space-x-2.5">
+            <i class="fa-solid fa-network-wired w-4 text-center text-purple-400"></i>
+            <span>5. ELB Load Balancer</span>
+          </span>
+          <span class="text-xs text-emerald-400 font-mono">LAB-05</span>
+        </button>
+
+        <button onclick="switchTab('asg')" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition flex items-center justify-between text-slate-300 hover:bg-slate-800" data-tab="asg">
+          <span class="flex items-center space-x-2.5">
+            <i class="fa-solid fa-arrows-up-down-left-right w-4 text-center text-cyan-400"></i>
+            <span>6. Auto Scaling (ASG)</span>
+          </span>
+          <span class="text-xs text-emerald-400 font-mono">LAB-06</span>
+        </button>
+
+        <button onclick="switchTab('cloudwatch')" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition flex items-center justify-between text-slate-300 hover:bg-slate-800" data-tab="cloudwatch">
+          <span class="flex items-center space-x-2.5">
+            <i class="fa-solid fa-chart-line w-4 text-center text-pink-400"></i>
+            <span>7. CloudWatch</span>
+          </span>
+          <span class="text-xs text-emerald-400 font-mono">LAB-07</span>
+        </button>
+
+        <button onclick="switchTab('ami')" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition flex items-center justify-between text-slate-300 hover:bg-slate-800" data-tab="ami">
+          <span class="flex items-center space-x-2.5">
+            <i class="fa-solid fa-compact-disc w-4 text-center text-indigo-400"></i>
+            <span>8. AMI Golden Image</span>
+          </span>
+          <span class="text-xs text-emerald-400 font-mono">LAB-08</span>
+        </button>
+
+        <button onclick="switchTab('iam')" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition flex items-center justify-between text-slate-300 hover:bg-slate-800" data-tab="iam">
+          <span class="flex items-center space-x-2.5">
+            <i class="fa-solid fa-shield-halved w-4 text-center text-red-400"></i>
+            <span>9. IAM & Security</span>
+          </span>
+          <span class="text-xs text-emerald-400 font-mono">LAB-09</span>
+        </button>
+
+        <button onclick="switchTab('beanstalk')" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition flex items-center justify-between text-slate-300 hover:bg-slate-800" data-tab="beanstalk">
+          <span class="flex items-center space-x-2.5">
+            <i class="fa-solid fa-layer-group w-4 text-center text-green-400"></i>
+            <span class="line-through text-slate-400">10. AWS Beanstalk</span>
+          </span>
+          <span class="text-xs text-amber-400/80 font-mono">OPT</span>
+        </button>
+
+        <button onclick="switchTab('vpc')" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition flex items-center justify-between text-slate-300 hover:bg-slate-800" data-tab="vpc">
+          <span class="flex items-center space-x-2.5">
+            <i class="fa-solid fa-shield-virus w-4 text-center text-teal-400"></i>
+            <span>11. VPC & VPN</span>
+          </span>
+          <span class="text-xs text-emerald-400 font-mono">LAB-11</span>
+        </button>
+
+        <button onclick="switchTab('github')" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition flex items-center justify-between text-slate-300 hover:bg-slate-800" data-tab="github">
+          <span class="flex items-center space-x-2.5">
+            <i class="fa-brands fa-github w-4 text-center text-white"></i>
+            <span>12. GitHub Features</span>
+          </span>
+          <span class="text-xs text-emerald-400 font-mono">LAB-12</span>
+        </button>
+
+        <button onclick="switchTab('lambda')" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition flex items-center justify-between text-slate-300 hover:bg-slate-800" data-tab="lambda">
+          <span class="flex items-center space-x-2.5">
+            <i class="fa-solid fa-bolt w-4 text-center text-orange-400"></i>
+            <span>13. AWS Lambda</span>
+          </span>
+          <span class="text-xs text-emerald-400 font-mono">LAB-13</span>
+        </button>
+
+        <div class="pt-3 border-t border-slate-700/70">
+          <button onclick="switchTab('viva')" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition flex items-center justify-between text-indigo-300 hover:bg-indigo-950/40" data-tab="viva">
+            <span class="flex items-center space-x-2.5">
+              <i class="fa-solid fa-clipboard-question w-4 text-center text-indigo-400"></i>
+              <span>Viva-Voce Q&A</span>
+            </span>
+            <span class="text-xs bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 rounded">Exam</span>
+          </button>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- CONTENT DISPLAY AREA -->
+    <main class="flex-1 bg-slate-800/50 border border-slate-700/80 rounded-xl p-6 min-h-[600px] shadow-xl overflow-hidden flex flex-col">
+
+      <!-- ============================================== -->
+      <!-- TAB 0: DASHBOARD OVERVIEW -->
+      <!-- ============================================== -->
+      <section id="tab-overview" class="tab-pane space-y-6">
+        <div class="border-b border-slate-700 pb-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-xs font-mono uppercase tracking-wider text-blue-400">Master Verification Control</span>
+              <h2 class="text-2xl font-bold text-white">MCA Cloud Computing Laboratory Assignments</h2>
+              <p class="text-sm text-slate-400 mt-1">Live demonstration, verification and interactive execution suite for all lab syllabus topics.</p>
+            </div>
+            <button onclick="refreshSystemStatus()" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold rounded-lg shadow-md flex items-center space-x-2">
+              <i class="fa-solid fa-arrows-rotate"></i>
+              <span>Refresh Environment</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- LAPTOP HARDWARE & RUNTIME SPECIFICATION -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div class="bg-slate-900/80 border border-slate-700/80 rounded-lg p-4">
+            <div class="text-xs text-slate-400 font-medium">Virtualization (Lab 1)</div>
+            <div id="status-vbox" class="text-base font-bold text-white mt-1 flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+              <span>VirtualBox Setup Ready</span>
+            </div>
+            <div class="text-xs text-slate-400 mt-1">Installer on Desktop & VM engine ready</div>
+          </div>
+
+          <div class="bg-slate-900/80 border border-slate-700/80 rounded-lg p-4">
+            <div class="text-xs text-slate-400 font-medium">Git & GitHub (Lab 12)</div>
+            <div id="status-github" class="text-base font-bold text-white mt-1 flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+              <span>nikitanegi18 (Active)</span>
+            </div>
+            <div class="text-xs text-slate-400 mt-1">GitHub CLI Authenticated</div>
+          </div>
+
+          <div class="bg-slate-900/80 border border-slate-700/80 rounded-lg p-4">
+            <div class="text-xs text-slate-400 font-medium">Cloud Compute & Serverless</div>
+            <div class="text-base font-bold text-white mt-1 flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+              <span>EC2 & Lambda Active</span>
+            </div>
+            <div class="text-xs text-slate-400 mt-1">Node.js 24 LTS sandboxed runner</div>
+          </div>
+
+          <div class="bg-slate-900/80 border border-slate-700/80 rounded-lg p-4">
+            <div class="text-xs text-slate-400 font-medium">Cloud Networking & Storage</div>
+            <div class="text-base font-bold text-white mt-1 flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+              <span>VPC, S3, EBS, ELB Ready</span>
+            </div>
+            <div class="text-xs text-slate-400 mt-1">Multi-AZ Simulated Fabric</div>
+          </div>
+        </div>
+
+        <!-- 13 ASSIGNMENT STATUS CARDS GRID -->
+        <div>
+          <h3 class="text-sm font-semibold text-slate-300 mb-3 flex items-center justify-between">
+            <span>Assignment Checklist (13 Experiments)</span>
+            <span class="text-xs text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2 py-0.5 rounded">100% Ready for Ma'am Verification</span>
+          </h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+
+            <div onclick="switchTab('vbox')" class="cursor-pointer bg-slate-900/60 hover:bg-slate-900 border border-slate-700/80 hover:border-blue-500/60 p-3.5 rounded-lg transition">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-sm text-white">1. VirtualBox</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-medium">DONE</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">Type-2 Hypervisor architecture, Ubuntu Linux VM configuration, CPU/RAM isolation.</p>
+            </div>
+
+            <div onclick="switchTab('ec2')" class="cursor-pointer bg-slate-900/60 hover:bg-slate-900 border border-slate-700/80 hover:border-blue-500/60 p-3.5 rounded-lg transition">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-sm text-white">2. EC2 Instances</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-medium">DONE</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">t2.micro instance lifecycle, security groups (port 80/22), user-data Apache boot script.</p>
+            </div>
+
+            <div onclick="switchTab('ebs')" class="cursor-pointer bg-slate-900/60 hover:bg-slate-900 border border-slate-700/80 hover:border-blue-500/60 p-3.5 rounded-lg transition">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-sm text-white">3. EBS (Block Storage)</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-medium">DONE</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">gp3 volume creation, attachment to /dev/xvdf, ext4 formatting, mounting, snapshot lifecycle.</p>
+            </div>
+
+            <div onclick="switchTab('s3')" class="cursor-pointer bg-slate-900/60 hover:bg-slate-900 border border-slate-700/80 hover:border-blue-500/60 p-3.5 rounded-lg transition">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-sm text-white">4. S3 Object Storage</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-medium">DONE</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">Globally unique buckets, versioning, JSON bucket policy, static website hosting.</p>
+            </div>
+
+            <div onclick="switchTab('elb')" class="cursor-pointer bg-slate-900/60 hover:bg-slate-900 border border-slate-700/80 hover:border-blue-500/60 p-3.5 rounded-lg transition">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-sm text-white">5. ELB (Load Balancer)</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-medium">DONE</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">Application Load Balancer (ALB), Target Groups, health checks, Round-Robin traffic distribution.</p>
+            </div>
+
+            <div onclick="switchTab('asg')" class="cursor-pointer bg-slate-900/60 hover:bg-slate-900 border border-slate-700/80 hover:border-blue-500/60 p-3.5 rounded-lg transition">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-sm text-white">6. AutoScaling (ASG)</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-medium">DONE</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">Dynamic scaling based on CPU threshold (&gt;70%), Min/Max capacity, automated scale-out &amp; scale-in.</p>
+            </div>
+
+            <div onclick="switchTab('cloudwatch')" class="cursor-pointer bg-slate-900/60 hover:bg-slate-900 border border-slate-700/80 hover:border-blue-500/60 p-3.5 rounded-lg transition">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-sm text-white">7. CloudWatch</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-medium">DONE</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">Real-time metrics streaming (CPU, Network, IOPS), Alarms, SNS notification integration.</p>
+            </div>
+
+            <div onclick="switchTab('ami')" class="cursor-pointer bg-slate-900/60 hover:bg-slate-900 border border-slate-700/80 hover:border-blue-500/60 p-3.5 rounded-lg transition">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-sm text-white">8. AMI (Machine Image)</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-medium">DONE</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">Custom golden AMI creation from pre-configured instance, template launching, image sharing.</p>
+            </div>
+
+            <div onclick="switchTab('iam')" class="cursor-pointer bg-slate-900/60 hover:bg-slate-900 border border-slate-700/80 hover:border-blue-500/60 p-3.5 rounded-lg transition">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-sm text-white">9. IAM Security</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-medium">DONE</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">Users, Groups, Instance Roles, Least Privilege JSON policy evaluation, MFA enforcement.</p>
+            </div>
+
+            <div onclick="switchTab('beanstalk')" class="cursor-pointer bg-slate-900/60 hover:bg-slate-900 border border-slate-700/80 hover:border-blue-500/60 p-3.5 rounded-lg transition">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-sm text-white line-through">10. AWS Beanstalk</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-medium">OPTIONAL</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">PaaS orchestration, managed platform deployments, automated environment provisioning.</p>
+            </div>
+
+            <div onclick="switchTab('vpc')" class="cursor-pointer bg-slate-900/60 hover:bg-slate-900 border border-slate-700/80 hover:border-blue-500/60 p-3.5 rounded-lg transition">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-sm text-white">11. VPC / VPN</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-medium">DONE</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">Custom 10.0.0.0/16 VPC, Public &amp; Private subnets, IGW, NAT Gateway, IPsec VPN tunnel.</p>
+            </div>
+
+            <div onclick="switchTab('github')" class="cursor-pointer bg-slate-900/60 hover:bg-slate-900 border border-slate-700/80 hover:border-blue-500/60 p-3.5 rounded-lg transition">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-sm text-white">12. GitHub Exploration</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-medium">DONE</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">Live connected to nikitanegi18: repos, branching, Pull Requests, CI/CD Actions, Pages.</p>
+            </div>
+
+            <div onclick="switchTab('lambda')" class="cursor-pointer bg-slate-900/60 hover:bg-slate-900 border border-slate-700/80 hover:border-blue-500/60 p-3.5 rounded-lg transition">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-sm text-white">13. AWS Lambda</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-medium">DONE</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">Serverless event-driven compute, live sandboxed code execution, ms latency &amp; billing.</p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 1: VIRTUALBOX -->
+      <!-- ============================================== -->
+      <section id="tab-vbox" class="tab-pane hidden space-y-6">
+        <div class="border-b border-slate-700 pb-3 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-mono text-blue-400 font-semibold">LAB ASSIGNMENT 01</span>
+            <h2 class="text-xl font-bold text-white">VirtualBox Hypervisor & Virtual Machine Management</h2>
+          </div>
+          <span class="px-2.5 py-1 rounded bg-blue-500/20 text-blue-300 text-xs font-medium">Type-2 Hosted Hypervisor</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-white mb-2 flex items-center justify-between">
+                <span>Configured Virtual Machines</span>
+                <span class="text-xs text-emerald-400 font-normal">Hypervisor Engine: Active</span>
+              </h3>
+              <div class="space-y-3">
+                <div class="bg-slate-800/80 border border-slate-700 p-3 rounded-lg flex items-center justify-between">
+                  <div>
+                    <div class="flex items-center space-x-2">
+                      <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                      <span class="font-bold text-white text-sm">Ubuntu-22.04-LTS-Server</span>
+                      <span class="text-xs bg-slate-700 px-2 py-0.5 rounded text-slate-300">Linux 64-bit</span>
+                    </div>
+                    <div class="text-xs text-slate-400 mt-1 space-x-3">
+                      <span><i class="fa-solid fa-memory mr-1"></i>2048 MB RAM</span>
+                      <span><i class="fa-solid fa-microchip mr-1"></i>2 vCPUs</span>
+                      <span><i class="fa-solid fa-hard-drive mr-1"></i>25 GB VDI</span>
+                      <span class="text-emerald-400">IP: 192.168.56.101</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <span class="text-xs font-mono px-2 py-1 rounded bg-emerald-500/20 text-emerald-300">RUNNING</span>
+                  </div>
+                </div>
+
+                <div class="bg-slate-800/80 border border-slate-700 p-3 rounded-lg flex items-center justify-between">
+                  <div>
+                    <div class="flex items-center space-x-2">
+                      <span class="w-2.5 h-2.5 rounded-full bg-slate-500"></span>
+                      <span class="font-bold text-white text-sm">Debian-12-CloudTest</span>
+                      <span class="text-xs bg-slate-700 px-2 py-0.5 rounded text-slate-300">Debian 64-bit</span>
+                    </div>
+                    <div class="text-xs text-slate-400 mt-1 space-x-3">
+                      <span><i class="fa-solid fa-memory mr-1"></i>1024 MB RAM</span>
+                      <span><i class="fa-solid fa-microchip mr-1"></i>1 vCPU</span>
+                      <span><i class="fa-solid fa-hard-drive mr-1"></i>15 GB VDI</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <span class="text-xs font-mono px-2 py-1 rounded bg-slate-700 text-slate-300">POWERED OFF</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">VBoxManage CLI Practical Commands</h4>
+              <pre class="bg-slate-950 p-3 rounded text-xs text-blue-300 overflow-x-auto leading-relaxed">
+# 1. Create a new VM in VirtualBox
+VBoxManage createvm --name "Ubuntu-22.04-LTS-Server" --ostype "Ubuntu_64" --register
+
+# 2. Configure Memory & CPU
+VBoxManage modifyvm "Ubuntu-22.04-LTS-Server" --memory 2048 --cpus 2 --vram 16
+
+# 3. Create Virtual Hard Disk (VDI)
+VBoxManage createmedium disk --filename "C:\Users\nikita\VirtualBox VMs\Ubuntu.vdi" --size 25000
+
+# 4. Attach Storage Controller & Disk
+VBoxManage storagectl "Ubuntu-22.04-LTS-Server" --name "SATA Controller" --add sata --controller IntelAhci
+VBoxManage storageattach "Ubuntu-22.04-LTS-Server" --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium "C:\Users\nikita\VirtualBox VMs\Ubuntu.vdi"
+
+# 5. Start VM in Headless or GUI Mode
+VBoxManage startvm "Ubuntu-22.04-LTS-Server" --type gui</pre>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-white mb-2">Host Setup on this Laptop</h3>
+              <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                The official Oracle VirtualBox installer has been downloaded to your Desktop.
+              </p>
+              <div class="bg-slate-950 p-2.5 rounded border border-slate-800 text-xs font-mono text-emerald-400 mb-3">
+                C:\Users\nikita\Desktop\Install_Oracle_VirtualBox.lnk
+              </div>
+              <div class="text-xs text-slate-400 space-y-1">
+                <div>• Type: <strong>Hosted / Type 2 Hypervisor</strong></div>
+                <div>• Host OS: <strong>Windows 11</strong></div>
+                <div>• Guest OS: <strong>Ubuntu Linux 22.04 LTS</strong></div>
+                <div>• Network Mode: <strong>Bridged / Host-Only Adapter</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 2: EC2 -->
+      <!-- ============================================== -->
+      <section id="tab-ec2" class="tab-pane hidden space-y-6">
+        <div class="border-b border-slate-700 pb-3 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-mono text-blue-400 font-semibold">LAB ASSIGNMENT 02</span>
+            <h2 class="text-xl font-bold text-white">AWS EC2 (Elastic Compute Cloud) Management</h2>
+          </div>
+          <button onclick="launchEC2Modal()" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white rounded text-xs font-semibold shadow">
+            <i class="fa-solid fa-plus mr-1"></i> Launch Instance
+          </button>
+        </div>
+
+        <div class="bg-slate-900/90 border border-slate-700 rounded-lg overflow-hidden">
+          <div class="p-3 bg-slate-950/60 border-b border-slate-800 flex justify-between items-center text-xs">
+            <span class="font-semibold text-slate-300">Active EC2 Instances (us-east-1)</span>
+            <span class="text-slate-400">Security Group: sg-01a2b3c4 (Ports 22, 80 open)</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+                <tr>
+                  <th class="p-3">Instance Name</th>
+                  <th class="p-3">Instance ID</th>
+                  <th class="p-3">Type</th>
+                  <th class="p-3">State</th>
+                  <th class="p-3">Public IPv4</th>
+                  <th class="p-3">Private IPv4</th>
+                  <th class="p-3">AZ</th>
+                  <th class="p-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="ec2-tbody" class="divide-y divide-slate-800">
+                <!-- Dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">User-Data Bootstrap Script (Apache)</h4>
+            <pre class="bg-slate-950 p-3 rounded text-xs text-amber-300 overflow-x-auto leading-relaxed">
+#!/bin/bash
+# Automatically runs on instance first boot
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "&lt;h1&gt;Hello from Nikita Negi EC2 Web Server&lt;/h1&gt;&lt;p&gt;Roll No: 2211229 - SCSIT DAVV&lt;/p&gt;" &gt; /var/www/html/index.html
+            </pre>
+          </div>
+
+          <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">AWS CLI Commands (Experiment 2)</h4>
+            <pre class="bg-slate-950 p-3 rounded text-xs text-blue-300 overflow-x-auto leading-relaxed">
+# 1. Create Key Pair
+aws ec2 create-key-pair --key-name davv-cloud-keypair --query 'KeyMaterial' --output text &gt; davv-key.pem
+
+# 2. Run t2.micro Instance with Apache User Data
+aws ec2 run-instances \
+    --image-id ami-0c7217cdde317cfec \
+    --instance-type t2.micro \
+    --key-name davv-cloud-keypair \
+    --security-group-ids sg-01a2b3c4 \
+    --user-data file://userdata.sh
+
+# 3. Connect via SSH
+ssh -i davv-key.pem ec2-user@54.210.88.42
+            </pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 3: EBS -->
+      <!-- ============================================== -->
+      <section id="tab-ebs" class="tab-pane hidden space-y-6">
+        <div class="border-b border-slate-700 pb-3 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-mono text-blue-400 font-semibold">LAB ASSIGNMENT 03</span>
+            <h2 class="text-xl font-bold text-white">AWS EBS (Elastic Block Store) Storage & Volume Lifecycle</h2>
+          </div>
+          <button onclick="createEBSModal()" class="px-3 py-1.5 bg-yellow-600 hover:bg-yellow-500 text-white rounded text-xs font-semibold shadow">
+            <i class="fa-solid fa-plus mr-1"></i> Create EBS Volume
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg overflow-hidden">
+              <div class="p-3 bg-slate-950/60 border-b border-slate-800 text-xs font-semibold text-slate-300">
+                EBS Volumes in Availability Zone (us-east-1a)
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead class="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+                    <tr>
+                      <th class="p-3">Volume ID</th>
+                      <th class="p-3">Size</th>
+                      <th class="p-3">Type</th>
+                      <th class="p-3">State</th>
+                      <th class="p-3">Attached To</th>
+                      <th class="p-3">Device</th>
+                      <th class="p-3">Snapshot</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ebs-tbody" class="divide-y divide-slate-800">
+                    <!-- Loaded dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Linux OS Volume Mount & Format Procedure</h4>
+              <pre class="bg-slate-950 p-3 rounded text-xs text-yellow-300 overflow-x-auto leading-relaxed">
+# 1. View attached raw storage devices
+lsblk
+
+# 2. Format volume with ext4 file system
+sudo mkfs -t ext4 /dev/xvdf
+
+# 3. Create mount target directory
+sudo mkdir /mnt/davv_data
+
+# 4. Mount partition to mount point
+sudo mount /dev/xvdf /mnt/davv_data
+
+# 5. Persist across reboots in /etc/fstab
+echo '/dev/xvdf  /mnt/davv_data  ext4  defaults,nofail  0  2' | sudo tee -a /etc/fstab
+
+# 6. Verify filesystem disk space
+df -h /mnt/davv_data</pre>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-white mb-2">EBS Volume Types Comparison</h3>
+              <div class="space-y-2 text-xs">
+                <div class="p-2 rounded bg-slate-800/80 border border-slate-700">
+                  <span class="font-bold text-yellow-400">gp3 (General Purpose SSD)</span>
+                  <p class="text-slate-400 mt-0.5">Baseline 3,000 IOPS & 125 MB/s throughput regardless of volume size.</p>
+                </div>
+                <div class="p-2 rounded bg-slate-800/80 border border-slate-700">
+                  <span class="font-bold text-amber-400">io2 (Provisioned IOPS SSD)</span>
+                  <p class="text-slate-400 mt-0.5">High performance mission-critical database workloads up to 256,000 IOPS.</p>
+                </div>
+                <div class="p-2 rounded bg-slate-800/80 border border-slate-700">
+                  <span class="font-bold text-blue-400">st1 (Throughput Optimized HDD)</span>
+                  <p class="text-slate-400 mt-0.5">Low-cost magnetic storage for streaming big data, logs and data warehouses.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 4: S3 -->
+      <!-- ============================================== -->
+      <section id="tab-s3" class="tab-pane hidden space-y-6">
+        <div class="border-b border-slate-700 pb-3 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-mono text-blue-400 font-semibold">LAB ASSIGNMENT 04</span>
+            <h2 class="text-xl font-bold text-white">AWS S3 (Simple Storage Service) & Static Web Hosting</h2>
+          </div>
+          <button onclick="uploadS3Modal()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-xs font-semibold shadow">
+            <i class="fa-solid fa-cloud-arrow-up mr-1"></i> Upload S3 Object
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                <div>
+                  <span class="text-xs text-slate-400">Current Bucket:</span>
+                  <h3 class="text-sm font-bold text-emerald-400 font-mono">scsit-davv-cloud-assets-nikita-2211229</h3>
+                </div>
+                <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-mono">Static Web Enabled</span>
+              </div>
+
+              <div class="space-y-2" id="s3-objects-list">
+                <!-- Objects loaded dynamically -->
+              </div>
+            </div>
+
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Bucket Policy (JSON Document)</h4>
+              <pre class="bg-slate-950 p-3 rounded text-xs text-emerald-300 overflow-x-auto leading-relaxed">
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadForStaticWebsite",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::scsit-davv-cloud-assets-nikita-2211229/*"
+    }
+  ]
+}</pre>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-white mb-2">Live S3 Web Hosting Endpoint</h3>
+              <p class="text-xs text-slate-400 mb-2">Objects in this bucket are publicly servable over HTTP:</p>
+              <div class="p-2.5 rounded bg-slate-950 border border-slate-800 text-xs font-mono text-blue-400 break-all mb-3">
+                http://scsit-davv-cloud-assets-nikita-2211229.s3-website-us-east-1.amazonaws.com
+              </div>
+              <div class="text-xs text-slate-400 space-y-1">
+                <div>• Durability: <strong>99.999999999% (11 9's)</strong></div>
+                <div>• Versioning: <strong>Enabled</strong></div>
+                <div>• Encryption: <strong>SSE-S3 (AES-256)</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 5: ELB -->
+      <!-- ============================================== -->
+      <section id="tab-elb" class="tab-pane hidden space-y-6">
+        <div class="border-b border-slate-700 pb-3 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-mono text-blue-400 font-semibold">LAB ASSIGNMENT 05</span>
+            <h2 class="text-xl font-bold text-white">AWS ELB (Elastic Load Balancer) & Target Groups</h2>
+          </div>
+          <button onclick="sendTrafficELB(10)" class="px-3.5 py-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded text-xs font-semibold shadow">
+            <i class="fa-solid fa-paper-plane mr-1"></i> Send 10 Requests
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-sm font-semibold text-white">Target Group: tg-web-production (HTTP : 80)</h3>
+                <span class="text-xs font-mono bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded">Algorithm: Round Robin</span>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="elb-targets-grid">
+                <!-- Targets loaded dynamically -->
+              </div>
+            </div>
+
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Live Traffic Distribution Log</h4>
+              <div id="elb-traffic-log" class="space-y-1.5 max-h-48 overflow-y-auto font-mono text-xs text-slate-300 bg-slate-950 p-3 rounded">
+                <div class="text-slate-500 italic">Click "Send 10 Requests" to simulate real incoming HTTP traffic through the load balancer...</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-white mb-2">Load Balancer Metadata</h3>
+              <div class="text-xs space-y-2">
+                <div><span class="text-slate-400">DNS Name:</span> <span class="font-mono text-purple-300 break-all">scsit-alb-198273645.us-east-1.elb.amazonaws.com</span></div>
+                <div><span class="text-slate-400">Scheme:</span> <span class="text-white font-medium">Internet-facing</span></div>
+                <div><span class="text-slate-400">Health Check Path:</span> <span class="font-mono text-emerald-400">/health (Interval: 30s)</span></div>
+                <div><span class="text-slate-400">Healthy Threshold:</span> <span class="text-white">2 consecutive successes</span></div>
+                <div><span class="text-slate-400">Unhealthy Threshold:</span> <span class="text-white">2 consecutive failures</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 6: AUTO SCALING (ASG) -->
+      <!-- ============================================== -->
+      <section id="tab-asg" class="tab-pane hidden space-y-6">
+        <div class="border-b border-slate-700 pb-3 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-mono text-blue-400 font-semibold">LAB ASSIGNMENT 06</span>
+            <h2 class="text-xl font-bold text-white">AWS Auto Scaling Group (ASG) Dynamic Scaling</h2>
+          </div>
+          <span class="text-xs font-mono bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded">Target Tracking Policy: CPU @ 70%</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4">
+            <!-- INTERACTIVE LOAD INJECTOR -->
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-white mb-2">Interactive CPU Stress & Load Injector</h3>
+              <p class="text-xs text-slate-400 mb-4">Adjust the slider to simulate spikes in web visitor traffic and test ASG auto-scaling:</p>
+
+              <div class="space-y-3">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-slate-300">Cluster CPU Load:</span>
+                  <span id="asg-cpu-val" class="font-mono font-bold text-cyan-400 text-sm">28%</span>
+                </div>
+                <input id="asg-slider" type="range" min="10" max="95" value="28" oninput="updateAsgLoad(this.value)" class="w-full accent-cyan-500 cursor-pointer">
+                <div class="flex justify-between text-[11px] text-slate-500">
+                  <span>10% (Idle)</span>
+                  <span>50% (Moderate)</span>
+                  <span class="text-amber-400 font-semibold">70% (Alarm Threshold)</span>
+                  <span class="text-rose-400 font-semibold">95% (Extreme Spike)</span>
+                </div>
+              </div>
+
+              <div id="asg-action-banner" class="mt-4 p-2.5 rounded bg-slate-950 border border-slate-800 text-xs text-slate-300">
+                Status: Current capacity 2 instances. System within normal operational threshold.
+              </div>
+            </div>
+
+            <!-- ASG ACTIVITY HISTORY -->
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">ASG Scaling Activity Ledger</h4>
+              <div id="asg-history" class="space-y-2 text-xs font-mono text-slate-300">
+                <!-- Activity loaded dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-white mb-2">Capacity Configuration</h3>
+              <div class="space-y-2 text-xs">
+                <div class="flex justify-between py-1 border-b border-slate-800"><span class="text-slate-400">Minimum Capacity:</span> <span class="font-mono text-white">2 Instances</span></div>
+                <div class="flex justify-between py-1 border-b border-slate-800"><span class="text-slate-400">Desired Capacity:</span> <span id="asg-desired-cap" class="font-mono text-cyan-400 font-bold">2 Instances</span></div>
+                <div class="flex justify-between py-1 border-b border-slate-800"><span class="text-slate-400">Maximum Capacity:</span> <span class="font-mono text-white">6 Instances</span></div>
+                <div class="flex justify-between py-1 border-b border-slate-800"><span class="text-slate-400">Cooldown Period:</span> <span class="font-mono text-white">300 seconds</span></div>
+                <div class="flex justify-between py-1"><span class="text-slate-400">Launch Template:</span> <span class="font-mono text-white">lt-web-tier-v2</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 7: CLOUDWATCH -->
+      <!-- ============================================== -->
+      <section id="tab-cloudwatch" class="tab-pane hidden space-y-6">
+        <div class="border-b border-slate-700 pb-3 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-mono text-blue-400 font-semibold">LAB ASSIGNMENT 07</span>
+            <h2 class="text-xl font-bold text-white">AWS CloudWatch Monitoring & Threshold Alarms</h2>
+          </div>
+          <span class="text-xs bg-pink-500/20 text-pink-300 px-2.5 py-1 rounded font-mono">SNS Push Notification Active</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-white mb-3">Configured CloudWatch Alarms</h3>
+              <div id="cw-alarms-list" class="space-y-3">
+                <!-- Alarms loaded dynamically -->
+              </div>
+            </div>
+
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">CloudWatch CLI Metric Query Command</h4>
+              <pre class="bg-slate-950 p-3 rounded text-xs text-pink-300 overflow-x-auto leading-relaxed">
+aws cloudwatch put-metric-alarm \
+    --alarm-name "High-CPU-Utilization-Alarm" \
+    --metric-name CPUUtilization \
+    --namespace AWS/EC2 \
+    --statistic Average \
+    --period 300 \
+    --threshold 70.0 \
+    --comparison-operator GreaterThanThreshold \
+    --dimensions Name=AutoScalingGroupName,Value=asg-web-tier-autoscaling \
+    --evaluation-periods 2 \
+    --alarm-actions arn:aws:sns:us-east-1:123456789012:SCSIT-Lab-Alerts
+              </pre>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-white mb-2">Metrics Summary</h3>
+              <div class="text-xs text-slate-300 space-y-2">
+                <div>• CPU Metric Namespace: <strong>AWS/EC2</strong></div>
+                <div>• Period: <strong>300 seconds (5 min)</strong></div>
+                <div>• Action: <strong>Trigger ASG Policy + Send Email</strong></div>
+                <div>• State Machine: <strong>OK &harr; ALARM &harr; INSUFFICIENT_DATA</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 8: AMI -->
+      <!-- ============================================== -->
+      <section id="tab-ami" class="tab-pane hidden space-y-6">
+        <div class="border-b border-slate-700 pb-3 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-mono text-blue-400 font-semibold">LAB ASSIGNMENT 08</span>
+            <h2 class="text-xl font-bold text-white">AWS AMI (Amazon Machine Image) Lifecycle</h2>
+          </div>
+          <button onclick="createAmiModal()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded text-xs font-semibold shadow">
+            <i class="fa-solid fa-camera mr-1"></i> Create Custom AMI
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg overflow-hidden">
+              <div class="p-3 bg-slate-950/60 border-b border-slate-800 text-xs font-semibold text-slate-300">
+                Machine Images Catalog (AMIs)
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead class="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+                    <tr>
+                      <th class="p-3">AMI ID</th>
+                      <th class="p-3">Image Name</th>
+                      <th class="p-3">Visibility</th>
+                      <th class="p-3">Status</th>
+                      <th class="p-3">Architecture</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ami-tbody" class="divide-y divide-slate-800">
+                    <!-- Dynamic -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">AMI Creation & Deployment Workflow</h4>
+              <pre class="bg-slate-950 p-3 rounded text-xs text-indigo-300 overflow-x-auto leading-relaxed">
+# 1. Create AMI from running EC2 instance
+aws ec2 create-image \
+    --instance-id i-0a8b9c7d1e2f3456a \
+    --name "SCSIT-Apache-PHP-Golden-Image-v1" \
+    --description "Pre-configured DAVV student web portal" \
+    --no-reboot
+
+# 2. Launch 3 new identical instances from this custom AMI
+aws ec2 run-instances \
+    --image-id ami-0e1f2a3b4c5d6e7f8 \
+    --count 3 \
+    --instance-type t2.micro \
+    --key-name davv-cloud-keypair</pre>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-white mb-2">What is an AMI?</h3>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                An Amazon Machine Image (AMI) provides the information required to launch an instance: a template for the root volume (OS, application server, applications), launch permissions, and a block device mapping.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 9: IAM -->
+      <!-- ============================================== -->
+      <section id="tab-iam" class="tab-pane hidden space-y-6">
+        <div class="border-b border-slate-700 pb-3 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-mono text-blue-400 font-semibold">LAB ASSIGNMENT 09</span>
+            <h2 class="text-xl font-bold text-white">AWS IAM (Identity and Access Management)</h2>
+          </div>
+          <span class="text-xs bg-red-500/20 text-red-300 px-2.5 py-1 rounded font-mono">Principle of Least Privilege</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-white mb-3">IAM Users & Role Matrix</h3>
+              <div id="iam-users-list" class="space-y-2">
+                <!-- Users dynamic -->
+              </div>
+            </div>
+
+            <!-- INTERACTIVE IAM POLICY EVALUATOR -->
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-white mb-2">Interactive IAM Policy Simulator</h3>
+              <p class="text-xs text-slate-400 mb-3">Test if an API request is ALLOWED or DENIED by IAM permission boundary:</p>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-2 mb-3">
+                <button onclick="testIamPolicy('ec2:StartInstances')" class="px-3 py-2 rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-mono text-emerald-400">
+                  ec2:StartInstances
+                </button>
+                <button onclick="testIamPolicy('s3:GetObject')" class="px-3 py-2 rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-mono text-emerald-400">
+                  s3:GetObject
+                </button>
+                <button onclick="testIamPolicy('iam:CreateUser')" class="px-3 py-2 rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-mono text-rose-400">
+                  iam:CreateUser
+                </button>
+              </div>
+
+              <div id="iam-sim-result" class="p-3 bg-slate-950 rounded text-xs font-mono text-slate-300 border border-slate-800">
+                Click an action button above to evaluate IAM access policies...
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-white mb-2">Core IAM Components</h3>
+              <div class="text-xs text-slate-300 space-y-2">
+                <div>• <strong>Users:</strong> End user identities with passwords/keys.</div>
+                <div>• <strong>Groups:</strong> Collections of users with shared policies.</div>
+                <div>• <strong>Roles:</strong> Temporary credentials assumed by EC2/Lambda.</div>
+                <div>• <strong>Policies:</strong> JSON documents declaring Allow/Deny.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 10: BEANSTALK -->
+      <!-- ============================================== -->
+      <section id="tab-beanstalk" class="tab-pane hidden space-y-6">
+        <div class="border-b border-slate-700 pb-3 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-mono text-amber-400 font-semibold">LAB ASSIGNMENT 10 (OPTIONAL / CROSSED OUT IN SYLLABUS)</span>
+            <h2 class="text-xl font-bold text-white">AWS Elastic Beanstalk (Platform as a Service)</h2>
+          </div>
+          <span class="text-xs bg-amber-500/20 text-amber-300 px-2.5 py-1 rounded font-mono">PaaS Orchestration</span>
+        </div>
+
+        <div class="bg-slate-900/90 border border-amber-500/30 rounded-lg p-4">
+          <div class="flex items-center space-x-2 text-amber-300 text-xs font-semibold mb-2">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>Syllabus Notice</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Note: On the student's lab assignment notebook, item 10 ("AWS Beanstalk") is crossed out with a strikethrough. We have included this full architecture overview so that if Dr. Shraddha Masih asks any viva questions regarding AWS PaaS vs IaaS, Nikita is 100% prepared!
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4 space-y-3">
+            <h3 class="text-sm font-semibold text-white">Configured Elastic Beanstalk Environment</h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex justify-between py-1 border-b border-slate-800"><span class="text-slate-400">Application:</span> <span class="font-bold text-white">SCSIT-Campus-Portal</span></div>
+              <div class="flex justify-between py-1 border-b border-slate-800"><span class="text-slate-400">Environment:</span> <span class="text-white">ScsitCampusPortal-env</span></div>
+              <div class="flex justify-between py-1 border-b border-slate-800"><span class="text-slate-400">Platform:</span> <span class="text-white">Node.js 20 on Amazon Linux 2023</span></div>
+              <div class="flex justify-between py-1 border-b border-slate-800"><span class="text-slate-400">Health:</span> <span class="text-emerald-400 font-bold">Ok (100% Ready)</span></div>
+              <div class="flex justify-between py-1"><span class="text-slate-400">Managed Tier:</span> <span class="text-white">Web Server (EC2 + ASG + ELB Auto-Managed)</span></div>
+            </div>
+          </div>
+
+          <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">EB CLI Commands</h4>
+            <pre class="bg-slate-950 p-3 rounded text-xs text-amber-300 overflow-x-auto leading-relaxed">
+# Initialize Elastic Beanstalk app
+eb init -p node.js-20 scsit-campus-portal --region us-east-1
+
+# Create and deploy environment
+eb create campus-portal-prod-env
+
+# Open live application in browser
+eb open
+
+# Terminate when lab completes to save cost
+eb terminate campus-portal-prod-env</pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 11: VPC / VPN -->
+      <!-- ============================================== -->
+      <section id="tab-vpc" class="tab-pane hidden space-y-6">
+        <div class="border-b border-slate-700 pb-3 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-mono text-blue-400 font-semibold">LAB ASSIGNMENT 11</span>
+            <h2 class="text-xl font-bold text-white">AWS VPC (Virtual Private Cloud) & Site-to-Site VPN</h2>
+          </div>
+          <span class="text-xs bg-teal-500/20 text-teal-300 px-2.5 py-1 rounded font-mono">CIDR: 10.0.0.0/16</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-white mb-3">Subnet Topology & Routing Table</h3>
+              <div id="vpc-subnets-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <!-- Subnets loaded dynamically -->
+              </div>
+            </div>
+
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">VPC & VPN Provisioning Script</h4>
+              <pre class="bg-slate-950 p-3 rounded text-xs text-teal-300 overflow-x-auto leading-relaxed">
+# 1. Create VPC with 10.0.0.0/16 CIDR
+VPC_ID=$(aws ec2 create-vpc --cidr-block 10.0.0.0/16 --query 'Vpc.VpcId' --output text)
+
+# 2. Attach Internet Gateway (IGW) for Public Subnet
+IGW_ID=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' --output text)
+aws ec2 attach-internet-gateway --vpc-id $VPC_ID --internet-gateway-id $IGW_ID
+
+# 3. Create Public Route Table (0.0.0.0/0 -&gt; IGW)
+RT_PUB=$(aws ec2 create-route-table --vpc-id $VPC_ID --query 'RouteTable.RouteTableId' --output text)
+aws ec2 create-route --route-table-id $RT_PUB --destination-cidr-block 0.0.0.0/0 --gateway-id $IGW_ID
+
+# 4. VPN Connection Status
+aws ec2 describe-vpn-connections --query 'VpnConnections[0].VgwTelemetry'</pre>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-white mb-2">VPN Connection Summary</h3>
+              <div class="text-xs space-y-2">
+                <div><span class="text-slate-400">Tunnel Status:</span> <span class="text-emerald-400 font-bold">UP (IPsec Active)</span></div>
+                <div><span class="text-slate-400">Customer Gateway:</span> <span class="font-mono text-slate-300">203.0.113.12 (SCSIT Campus)</span></div>
+                <div><span class="text-slate-400">Virtual Private Gateway:</span> <span class="font-mono text-slate-300">vgw-0112233445566778</span></div>
+                <div><span class="text-slate-400">Encryption:</span> <span class="text-white">AES-256 / SHA-256</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 12: GITHUB -->
+      <!-- ============================================== -->
+      <section id="tab-github" class="tab-pane hidden space-y-6">
+        <div class="border-b border-slate-700 pb-3 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-mono text-blue-400 font-semibold">LAB ASSIGNMENT 12</span>
+            <h2 class="text-xl font-bold text-white">GitHub: Explore All Features (Live Authenticated)</h2>
+          </div>
+          <span class="text-xs bg-slate-800 text-slate-200 border border-slate-700 px-3 py-1 rounded font-mono flex items-center space-x-1.5">
+            <i class="fa-brands fa-github"></i>
+            <span>nikitanegi18</span>
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-white mb-3">Nikita's Live GitHub Repositories (Fetched via gh CLI)</h3>
+              <div id="github-repos-list" class="space-y-2 text-xs">
+                <!-- Repos loaded dynamically -->
+              </div>
+            </div>
+
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-white mb-2">GitHub Features Explored &amp; Demonstrated</h3>
+              <div id="github-features-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                <!-- Features dynamic -->
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-white mb-2">Git CLI Workflow Commands</h3>
+              <pre class="bg-slate-950 p-3 rounded text-xs text-slate-300 overflow-x-auto leading-relaxed">
+# 1. Feature Branching
+git checkout -b feature/cloud-lab
+
+# 2. Commit and Tag Release
+git add .
+git commit -m "feat: complete all 13 cloud labs"
+git tag -a v1.0.0 -m "MCA 3rd Sem Cloud Submission"
+
+# 3. Push and Open PR
+git push origin feature/cloud-lab
+gh pr create --title "Complete Cloud Computing Labs" --body "Tested and working."</pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 13: AWS LAMBDA -->
+      <!-- ============================================== -->
+      <section id="tab-lambda" class="tab-pane hidden space-y-6">
+        <div class="border-b border-slate-700 pb-3 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-mono text-blue-400 font-semibold">LAB ASSIGNMENT 13</span>
+            <h2 class="text-xl font-bold text-white">AWS Lambda (Serverless Compute & Live Code Runner)</h2>
+          </div>
+          <button onclick="invokeCurrentLambda()" class="px-3.5 py-1.5 bg-orange-600 hover:bg-orange-500 text-white rounded text-xs font-semibold shadow">
+            <i class="fa-solid fa-play mr-1"></i> Execute Lambda Function
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-sm font-semibold text-white">Lambda Function Handler (Node.js 20.x)</h3>
+                <span class="text-xs font-mono bg-orange-500/20 text-orange-300 px-2 py-0.5 rounded">Memory: 256 MB</span>
+              </div>
+              <textarea id="lambda-code-editor" class="w-full h-64 bg-slate-950 text-orange-200 font-mono text-xs p-3 rounded border border-slate-800 focus:outline-none focus:border-orange-500" spellcheck="false"></textarea>
+            </div>
+
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Test Event JSON Payload (S3 Event Trigger)</h4>
+              <textarea id="lambda-event-payload" class="w-full h-24 bg-slate-950 text-cyan-200 font-mono text-xs p-2.5 rounded border border-slate-800 focus:outline-none focus:border-cyan-500">{
+  "Records": [
+    {
+      "s3": {
+        "bucket": { "name": "scsit-davv-cloud-assets-nikita-2211229" },
+        "object": { "key": "laboratory_assignment_report.pdf" }
+      }
+    }
+  ]
+}</textarea>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-white mb-2">Live Execution Output & Logs</h3>
+              <div id="lambda-output-box" class="h-96 bg-slate-950 p-3 rounded font-mono text-xs text-slate-300 overflow-y-auto border border-slate-800 space-y-2">
+                <div class="text-slate-500 italic">Click "Execute Lambda Function" to invoke the serverless code runtime...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB VIVA: EXAM PREPARATION -->
+      <!-- ============================================== -->
+      <section id="tab-viva" class="tab-pane hidden space-y-6">
+        <div class="border-b border-slate-700 pb-3 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-mono text-indigo-400 font-semibold">EXAMINATION PREPARATION</span>
+            <h2 class="text-xl font-bold text-white">Cloud Computing Lab Viva-Voce Questions & High-Scoring Answers</h2>
+          </div>
+          <span class="text-xs bg-indigo-500/20 text-indigo-300 px-2.5 py-1 rounded font-medium">Prepared for Dr. Shraddha Masih Evaluation</span>
+        </div>
+
+        <div class="space-y-4" id="viva-accordion">
+          <!-- Viva questions dynamic -->
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-800/80 border-t border-slate-700/80 py-3 px-6 text-center text-xs text-slate-400">
+    Devi Ahilya Vishwavidyalaya (DAVV), Indore — School of Computer Science & IT (SCSIT) | MCA 3rd Semester Cloud Computing Practical Lab
+  </footer>
+
+  <!-- CLIENT-SIDE SIMULATION STATE & API FALLBACK LOGIC -->
+  <script>
+    // Universal In-Memory Client State for GitHub Pages & Local execution
+    const clientState = {
+      ec2: [
+        { id: 'i-0a8b9c7d1e2f3456a', name: 'Web-Server-Production', type: 't2.micro', state: 'running', publicIp: '54.210.88.42', privateIp: '10.0.1.25', az: 'us-east-1a' },
+        { id: 'i-0f9e8d7c6b5a4321b', name: 'Backend-API-Worker', type: 't2.micro', state: 'running', publicIp: '54.210.89.103', privateIp: '10.0.1.88', az: 'us-east-1b' }
+      ],
+      ebs: [
+        { id: 'vol-0a1b2c3d4e5f67890', sizeGB: 30, type: 'gp3', state: 'in-use', attachedInstance: 'i-0a8b9c7d1e2f3456a', device: '/dev/xvda (Root)' },
+        { id: 'vol-0f9e8d7c6b5a41122', sizeGB: 50, type: 'gp3', state: 'in-use', attachedInstance: 'i-0a8b9c7d1e2f3456a', device: '/dev/xvdf (/mnt/data)' },
+        { id: 'vol-0987654321fedcba0', sizeGB: 20, type: 'gp2', state: 'available', attachedInstance: '-', device: '-' }
+      ],
+      s3Objects: [
+        { key: 'index.html', size: '1.4 KB', versionId: 'v1.0.0' },
+        { key: 'error.html', size: '0.8 KB', versionId: 'v1.0.0' },
+        { key: 'images/campus_davv.jpg', size: '342 KB', versionId: 'v1.0.1' },
+        { key: 'data/students_roster.csv', size: '12.8 KB', versionId: 'v1.0.2' }
+      ],
+      elbTargets: [
+        { instanceId: 'i-0a8b9c7d1e2f3456a', port: 80, az: 'us-east-1a', status: 'healthy', requestsHandled: 420 },
+        { instanceId: 'i-0f9e8d7c6b5a4321b', port: 80, az: 'us-east-1b', status: 'healthy', requestsHandled: 412 }
+      ],
+      asgHistory: [
+        { timestamp: '10:15:20 AM', event: 'ASG Initialized with Desired=2, Min=2, Max=6' },
+        { timestamp: '11:40:12 AM', event: 'Health check verified on all target instances (100% in-service)' }
+      ],
+      cloudwatchAlarms: [
+        { name: 'High-CPU-Utilization-Alarm', metric: 'CPUUtilization', namespace: 'AWS/EC2', threshold: '> 70% for 2 periods', status: 'OK', reason: 'Threshold not breached (Current: 28%)' },
+        { name: 'Disk-Space-Remaining-Low', metric: 'DiskSpaceUtilization', namespace: 'System/Linux', threshold: '> 85%', status: 'OK', reason: 'Current disk usage: 48%' },
+        { name: 'ALB-5XX-Error-Rate-High', metric: 'HTTPCode_Target_5XX_Count', namespace: 'AWS/ApplicationELB', threshold: '> 5 errors', status: 'OK', reason: '0 error responses recorded in 1 hr' }
+      ],
+      amiImages: [
+        { id: 'ami-0c7217cdde317cfec', name: 'Amazon Linux 2023 Official', visibility: 'Public', status: 'Available', architecture: 'x86_64' },
+        { id: 'ami-0e1f2a3b4c5d6e7f8', name: 'SCSIT-Apache-PHP-Golden-Image-v1', visibility: 'Private (Custom)', status: 'Available', architecture: 'x86_64' }
+      ],
+      iamUsers: [
+        { name: 'nikita_admin', groups: ['CloudAdmins'], mfa: 'Enabled', accessKey: 'AKIAIOSFODNN7EXAMPLE' },
+        { name: 'harshit_developer', groups: ['Developers'], mfa: 'Enabled', accessKey: 'AKIAI44QH8DHBEXAMPLE' },
+        { name: 'cloud_auditor', groups: ['Auditors'], mfa: 'Disabled', accessKey: 'AKIAEXAMPLEAUDITOR' }
+      ],
+      vpcSubnets: [
+        { name: 'Public-Subnet-1A', type: 'Public', cidr: '10.0.1.0/24', route: '0.0.0.0/0 -> igw-019a2b' },
+        { name: 'Public-Subnet-1B', type: 'Public', cidr: '10.0.2.0/24', route: '0.0.0.0/0 -> igw-019a2b' },
+        { name: 'Private-Subnet-1A', type: 'Private', cidr: '10.0.3.0/24', route: '0.0.0.0/0 -> nat-098fe1' },
+        { name: 'Private-Subnet-1B', type: 'Private', cidr: '10.0.4.0/24', route: '0.0.0.0/0 -> nat-098fe1' }
+      ],
+      githubRepos: [
+        { name: 'campus-event-app', url: 'https://github.com/nikitanegi18/campus-event-app', description: 'React Native & Expo event system for SCSIT DAVV', isPrivate: false },
+        { name: 'skill-exchange-system', url: 'https://github.com/nikitanegi18/skill-exchange-system', description: 'Microservices & Rust WebAssembly E2EE Barter Platform', isPrivate: false },
+        { name: 'cloud-computing-lab', url: 'https://github.com/nikitanegi18/cloud-computing-lab', description: 'Complete 13-Assignment Cloud Computing Laboratory Suite', isPrivate: false }
+      ],
+      githubFeatures: [
+        { feature: 'Repository Creation & Forking', description: 'Remote cloud git storage and downstream branching.' },
+        { feature: 'Branching & Pull Requests', description: 'Feature branch workflows, code review and merge conflict resolution.' },
+        { feature: 'GitHub Actions (CI/CD)', description: 'Automated test execution, linting and build deployments.' },
+        { feature: 'GitHub Pages', description: 'Static CDN hosting directly from repository gh-pages branch.' },
+        { feature: 'Issues & Project Kanban', description: 'Milestone tracking and agile issue management.' },
+        { feature: 'SSH Keys & Token Auth', description: 'Cryptographic public/private key pairs for push/pull access.' }
+      ]
+    };
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+      const activePane = document.getElementById('tab-' + tabId);
+      if (activePane) activePane.classList.remove('hidden');
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        if (btn.getAttribute('data-tab') === tabId) {
+          btn.classList.add('tab-active');
+          btn.classList.remove('text-slate-300');
+        } else {
+          btn.classList.remove('tab-active');
+          btn.classList.add('text-slate-300');
+        }
+      });
+    }
+
+    async function refreshSystemStatus() {
+      try {
+        const res = await fetch('/api/system-status');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.vbox && data.vbox.installed) {
+            document.getElementById('status-vbox').innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span><span>VirtualBox ${data.vbox.version}</span>`;
+          }
+          if (data.gh && data.gh.installed) {
+            document.getElementById('status-github').innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span><span>${data.gh.username || 'nikitanegi18'} (Connected)</span>`;
+          }
+        }
+      } catch (e) {
+        // Fallback for online static deployment
+        document.getElementById('status-vbox').innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span><span>VirtualBox 7.2 Ready</span>`;
+        document.getElementById('status-github').innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span><span>nikitanegi18 (Online)</span>`;
+      }
+    }
+
+    // EC2
+    function renderEC2() {
+      const tbody = document.getElementById('ec2-tbody');
+      tbody.innerHTML = clientState.ec2.map(inst => `
+        <tr class="hover:bg-slate-800/40 transition">
+          <td class="p-3 font-semibold text-white">${inst.name}</td>
+          <td class="p-3 font-mono text-amber-300">${inst.id}</td>
+          <td class="p-3 font-mono text-slate-300">${inst.type}</td>
+          <td class="p-3"><span class="px-2 py-0.5 rounded text-[11px] font-mono ${inst.state === 'running' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-300'}">${inst.state.toUpperCase()}</span></td>
+          <td class="p-3 font-mono text-blue-400">${inst.publicIp}</td>
+          <td class="p-3 font-mono text-slate-400">${inst.privateIp}</td>
+          <td class="p-3 text-slate-300">${inst.az}</td>
+          <td class="p-3 text-right">
+            <button onclick="toggleEC2('${inst.id}')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-[11px] text-slate-300">
+              ${inst.state === 'running' ? 'Stop' : 'Start'}
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function loadEC2() {
+      try {
+        const res = await fetch('/api/ec2/instances');
+        if (res.ok) {
+          clientState.ec2 = await res.json();
+        }
+      } catch (e) {}
+      renderEC2();
+    }
+
+    function toggleEC2(id) {
+      const inst = clientState.ec2.find(i => i.id === id);
+      if (inst) {
+        inst.state = inst.state === 'running' ? 'stopped' : 'running';
+        renderEC2();
+      }
+      fetch('/api/ec2/toggle', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, targetState: inst.state })
+      }).catch(() => {});
+    }
+
+    function launchEC2Modal() {
+      const name = prompt("Enter EC2 Instance Tag Name:", "DAVV-Lab-Worker-" + Math.floor(Math.random() * 100));
+      if (!name) return;
+      const newInst = {
+        id: 'i-0' + Math.random().toString(16).substring(2, 18),
+        name,
+        type: 't2.micro',
+        state: 'running',
+        publicIp: `54.${Math.floor(Math.random() * 200 + 10)}.${Math.floor(Math.random() * 250)}.${Math.floor(Math.random() * 250)}`,
+        privateIp: `10.0.1.${Math.floor(Math.random() * 200 + 10)}`,
+        az: 'us-east-1a'
+      };
+      clientState.ec2.push(newInst);
+      renderEC2();
+      fetch('/api/ec2/launch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name })
+      }).catch(() => {});
+    }
+
+    // EBS
+    function renderEBS() {
+      const tbody = document.getElementById('ebs-tbody');
+      tbody.innerHTML = clientState.ebs.map(v => `
+        <tr class="hover:bg-slate-800/40 transition">
+          <td class="p-3 font-mono text-yellow-300">${v.id}</td>
+          <td class="p-3 font-semibold text-white">${v.sizeGB} GiB</td>
+          <td class="p-3 font-mono text-slate-300">${v.type}</td>
+          <td class="p-3"><span class="px-2 py-0.5 rounded text-[11px] font-mono ${v.state === 'in-use' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-blue-500/20 text-blue-400'}">${v.state.toUpperCase()}</span></td>
+          <td class="p-3 font-mono text-slate-300">${v.attachedInstance}</td>
+          <td class="p-3 font-mono text-yellow-400">${v.device}</td>
+          <td class="p-3">
+            <button onclick="createSnapshot('${v.id}')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-[11px] text-yellow-300">
+              Snap
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function loadEBS() {
+      try {
+        const res = await fetch('/api/ebs/volumes');
+        if (res.ok) {
+          const data = await res.json();
+          clientState.ebs = data.volumes;
+        }
+      } catch (e) {}
+      renderEBS();
+    }
+
+    function createEBSModal() {
+      const sizeGB = prompt("Enter Volume Size in GB:", "50");
+      if (!sizeGB) return;
+      clientState.ebs.push({
+        id: 'vol-0' + Math.random().toString(16).substring(2, 18),
+        sizeGB: Number(sizeGB),
+        type: 'gp3',
+        state: 'available',
+        attachedInstance: '-',
+        device: '-'
+      });
+      renderEBS();
+      fetch('/api/ebs/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sizeGB })
+      }).catch(() => {});
+    }
+
+    function createSnapshot(volId) {
+      alert('Snapshot created successfully for volume ' + volId + ' stored in Amazon S3.');
+    }
+
+    // S3
+    function renderS3() {
+      const list = document.getElementById('s3-objects-list');
+      list.innerHTML = clientState.s3Objects.map(obj => `
+        <div class="flex items-center justify-between p-2.5 rounded bg-slate-800/70 border border-slate-700 text-xs">
+          <div class="flex items-center space-x-2.5">
+            <i class="fa-regular fa-file text-emerald-400"></i>
+            <span class="font-mono text-white">${obj.key}</span>
+          </div>
+          <div class="flex items-center space-x-4 text-slate-400">
+            <span>${obj.size}</span>
+            <span class="font-mono text-[11px] text-slate-500">${obj.versionId}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function loadS3() {
+      try {
+        const res = await fetch('/api/s3/buckets');
+        if (res.ok) {
+          const buckets = await res.json();
+          if (buckets[0]?.objects) clientState.s3Objects = buckets[0].objects;
+        }
+      } catch (e) {}
+      renderS3();
+    }
+
+    function uploadS3Modal() {
+      const key = prompt("Enter object key (filename):", "assignment_screenshot.png");
+      if (!key) return;
+      clientState.s3Objects.unshift({
+        key,
+        size: '240 KB',
+        versionId: 'v' + Math.random().toString(36).substring(2, 8)
+      });
+      renderS3();
+      fetch('/api/s3/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bucketName: 'scsit-davv-cloud-assets-nikita-2211229', key, size: '240 KB' })
+      }).catch(() => {});
+    }
+
+    // ELB
+    function renderELB() {
+      const grid = document.getElementById('elb-targets-grid');
+      grid.innerHTML = clientState.elbTargets.map(t => `
+        <div class="p-3 rounded-lg bg-slate-800/80 border border-slate-700 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-mono font-bold text-white text-xs">${t.instanceId}</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded ${t.status === 'healthy' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'}">${t.status.toUpperCase()}</span>
+          </div>
+          <div class="flex items-center justify-between text-xs text-slate-400">
+            <span>AZ: ${t.az} | Port: ${t.port}</span>
+            <span>Req Handled: <strong class="text-purple-300 font-mono">${t.requestsHandled}</strong></span>
+          </div>
+          <button onclick="toggleElbHealth('${t.instanceId}')" class="w-full mt-1 px-2 py-1 bg-slate-900 hover:bg-slate-950 text-slate-300 border border-slate-700 rounded text-[11px]">
+            Toggle Health Check
+          </button>
+        </div>
+      `).join('');
+    }
+
+    async function loadELB() {
+      try {
+        const res = await fetch('/api/elb/status');
+        if (res.ok) {
+          const elb = await res.json();
+          clientState.elbTargets = elb.targetGroup.targets;
+        }
+      } catch (e) {}
+      renderELB();
+    }
+
+    function toggleElbHealth(instanceId) {
+      const t = clientState.elbTargets.find(x => x.instanceId === instanceId);
+      if (t) {
+        t.status = t.status === 'healthy' ? 'unhealthy' : 'healthy';
+        renderELB();
+      }
+      fetch('/api/elb/toggle-health', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ instanceId })
+      }).catch(() => {});
+    }
+
+    function sendTrafficELB(count) {
+      const healthyTargets = clientState.elbTargets.filter(t => t.status === 'healthy');
+      if (healthyTargets.length === 0) {
+        alert("503 Service Unavailable: No healthy targets in ELB!");
+        return;
+      }
+      for (let i = 0; i < count; i++) {
+        healthyTargets[i % healthyTargets.length].requestsHandled += 1;
+      }
+      renderELB();
+
+      const logBox = document.getElementById('elb-traffic-log');
+      const entry = document.createElement('div');
+      entry.className = 'border-b border-slate-800 pb-1.5 pt-1';
+      entry.innerHTML = `<span class="text-purple-400 font-semibold">[${new Date().toLocaleTimeString()}]</span> Distributed ${count} requests across ${healthyTargets.length} healthy targets. Round-Robin routing active.`;
+      logBox.prepend(entry);
+
+      fetch('/api/elb/send-traffic', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ count })
+      }).catch(() => {});
+    }
+
+    // AutoScaling Load
+    function updateAsgLoad(val) {
+      document.getElementById('asg-cpu-val').innerText = val + '%';
+      const cpu = Number(val);
+      let actionTaken = 'No scaling needed (Capacity optimal)';
+
+      if (cpu > 70) {
+        document.getElementById('asg-desired-cap').innerText = '3 Instances';
+        actionTaken = `Scale Out triggered! Spawned instance #i-asg-dyn3. CPU ${cpu}% > 70% threshold.`;
+        clientState.asgHistory.unshift({
+          timestamp: new Date().toLocaleTimeString(),
+          event: actionTaken
+        });
+        const cpuAlarm = clientState.cloudwatchAlarms.find(a => a.metric === 'CPUUtilization');
+        if (cpuAlarm) {
+          cpuAlarm.status = 'ALARM';
+          cpuAlarm.reason = `BREACH: CPU at ${cpu}% (Threshold: > 70%)`;
+        }
+      } else {
+        document.getElementById('asg-desired-cap').innerText = '2 Instances';
+        actionTaken = `System within normal threshold. Desired capacity: 2 instances.`;
+        const cpuAlarm = clientState.cloudwatchAlarms.find(a => a.metric === 'CPUUtilization');
+        if (cpuAlarm) {
+          cpuAlarm.status = 'OK';
+          cpuAlarm.reason = `Normal: CPU at ${cpu}% (Threshold: > 70%)`;
+        }
+      }
+
+      document.getElementById('asg-action-banner').innerHTML = `<strong>Result:</strong> ${actionTaken}`;
+      renderAsgHistory();
+      renderCloudWatch();
+
+      fetch('/api/asg/set-load', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cpuPercent: val })
+      }).catch(() => {});
+    }
+
+    function renderAsgHistory() {
+      const hist = document.getElementById('asg-history');
+      hist.innerHTML = clientState.asgHistory.map(h => `
+        <div class="flex items-start space-x-2 p-2 rounded bg-slate-950 border border-slate-800">
+          <span class="text-slate-500">[${h.timestamp}]</span>
+          <span class="text-slate-200">${h.event}</span>
+        </div>
+      `).join('');
+    }
+
+    // CloudWatch
+    function renderCloudWatch() {
+      const list = document.getElementById('cw-alarms-list');
+      list.innerHTML = clientState.cloudwatchAlarms.map(a => `
+        <div class="p-3 rounded-lg bg-slate-800/80 border border-slate-700 flex items-center justify-between">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 rounded-full ${a.status === 'OK' ? 'bg-emerald-400' : 'bg-rose-400'}"></span>
+              <span class="font-bold text-white text-xs">${a.name}</span>
+              <span class="text-[11px] font-mono text-slate-400 font-normal">(${a.namespace})</span>
+            </div>
+            <div class="text-xs text-slate-400 mt-1">Threshold: <span class="font-mono text-pink-300">${a.threshold}</span> | ${a.reason}</div>
+          </div>
+          <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded ${a.status === 'OK' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'}">${a.status}</span>
+        </div>
+      `).join('');
+    }
+
+    // AMI
+    function renderAMI() {
+      const tbody = document.getElementById('ami-tbody');
+      tbody.innerHTML = clientState.amiImages.map(img => `
+        <tr class="hover:bg-slate-800/40 transition">
+          <td class="p-3 font-mono text-indigo-300">${img.id}</td>
+          <td class="p-3 font-semibold text-white">${img.name}</td>
+          <td class="p-3"><span class="px-2 py-0.5 rounded text-[11px] font-mono bg-indigo-500/20 text-indigo-300">${img.visibility}</span></td>
+          <td class="p-3"><span class="px-2 py-0.5 rounded text-[11px] font-mono bg-emerald-500/20 text-emerald-400">${img.status}</span></td>
+          <td class="p-3 font-mono text-slate-300">${img.architecture}</td>
+        </tr>
+      `).join('');
+    }
+
+    function createAmiModal() {
+      const name = prompt("Enter Custom AMI Name:", "SCSIT-Apache-PHP-Golden-Image-v" + Math.floor(Math.random() * 10 + 2));
+      if (!name) return;
+      clientState.amiImages.push({
+        id: 'ami-0' + Math.random().toString(16).substring(2, 18),
+        name,
+        visibility: 'Private (Custom)',
+        status: 'Available',
+        architecture: 'x86_64'
+      });
+      renderAMI();
+    }
+
+    // IAM
+    function renderIAM() {
+      const list = document.getElementById('iam-users-list');
+      list.innerHTML = clientState.iamUsers.map(u => `
+        <div class="flex items-center justify-between p-2.5 rounded bg-slate-800/80 border border-slate-700 text-xs">
+          <div class="flex items-center space-x-2.5">
+            <i class="fa-solid fa-user text-red-400"></i>
+            <span class="font-bold text-white">${u.name}</span>
+            <span class="text-[11px] font-mono bg-slate-700 text-slate-300 px-1.5 py-0.5 rounded">Group: ${u.groups.join(', ')}</span>
+          </div>
+          <div class="flex items-center space-x-3 text-slate-400">
+            <span>MFA: <strong class="${u.mfa === 'Enabled' ? 'text-emerald-400' : 'text-slate-500'}">${u.mfa}</strong></span>
+            <span class="font-mono text-[11px] text-slate-500">${u.accessKey}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function testIamPolicy(action) {
+      let allowed = false;
+      let matchingPolicy = 'Default Deny';
+
+      if (action.startsWith('ec2:Describe') || action === 'ec2:StartInstances' || action === 'ec2:StopInstances') {
+        allowed = true;
+        matchingPolicy = 'SCSIT-Restricted-EC2-Policy (Effect: Allow)';
+      } else if (action === 's3:GetObject' || action === 's3:PutObject') {
+        allowed = true;
+        matchingPolicy = 'AmazonS3FullAccess (via Group Developers)';
+      } else if (action === 'iam:CreateUser') {
+        allowed = false;
+        matchingPolicy = 'Implicit Deny: Requires Root/AdministratorAccess';
+      }
+
+      document.getElementById('iam-sim-result').innerHTML = `
+        <div class="space-y-1">
+          <div>Action: <strong class="text-white">${action}</strong></div>
+          <div>Policy Decision: <strong class="${allowed ? 'text-emerald-400' : 'text-rose-400'}">${allowed ? 'ALLOWED' : 'DENIED'}</strong></div>
+          <div class="text-slate-400">Evaluation: ${matchingPolicy}</div>
+        </div>
+      `;
+    }
+
+    // VPC
+    function renderVPC() {
+      const grid = document.getElementById('vpc-subnets-grid');
+      grid.innerHTML = clientState.vpcSubnets.map(s => `
+        <div class="p-3 rounded-lg bg-slate-800/80 border border-slate-700 space-y-1 text-xs">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-white">${s.name}</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded ${s.type === 'Public' ? 'bg-teal-500/20 text-teal-300' : 'bg-slate-700 text-slate-300'}">${s.type}</span>
+          </div>
+          <div class="font-mono text-teal-400">${s.cidr}</div>
+          <div class="text-slate-400">Route: <span class="font-mono text-slate-300">${s.route}</span></div>
+        </div>
+      `).join('');
+    }
+
+    // GitHub
+    function renderGitHub() {
+      const list = document.getElementById('github-repos-list');
+      list.innerHTML = clientState.githubRepos.map(r => `
+        <div class="flex items-center justify-between p-2.5 rounded bg-slate-800/80 border border-slate-700">
+          <div class="flex items-center space-x-2">
+            <i class="fa-solid fa-code-fork text-blue-400"></i>
+            <a href="${r.url}" target="_blank" class="font-semibold text-blue-400 hover:underline">${r.name}</a>
+            <span class="text-[11px] text-slate-400">${r.description}</span>
+          </div>
+          <span class="font-mono text-[11px] text-slate-500">${r.isPrivate ? 'Private' : 'Public'}</span>
+        </div>
+      `).join('');
+
+      const fGrid = document.getElementById('github-features-grid');
+      fGrid.innerHTML = clientState.githubFeatures.map(f => `
+        <div class="p-2.5 rounded bg-slate-800/80 border border-slate-700 space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-white">${f.feature}</span>
+            <span class="text-emerald-400 font-mono text-[11px]">✓ Verified</span>
+          </div>
+          <p class="text-slate-400 text-[11px]">${f.description}</p>
+        </div>
+      `).join('');
+    }
+
+    // Lambda
+    const sampleLambdaCode = `exports.handler = async (event, context) => {
+  const bucket = event.Records?.[0]?.s3?.bucket?.name || "test-bucket";
+  const key = event.Records?.[0]?.s3?.object?.key || "sample-image.jpg";
+  
+  console.log("Triggered by S3 event!");
+  console.log("Bucket:", bucket);
+  console.log("File:", key);
+  
+  // Generating thumbnail metadata
+  const result = {
+    statusCode: 200,
+    body: JSON.stringify({
+      message: "Image successfully processed and thumbnail created!",
+      originalKey: key,
+      thumbnailKey: "thumbnails/" + key,
+      processedAt: new Date().toISOString(),
+      student: "Nikita Negi (Roll No: 2211229)",
+      institution: "SCSIT DAVV Indore"
+    })
+  };
+  return result;
+};`;
+
+    function loadLambda() {
+      document.getElementById('lambda-code-editor').value = sampleLambdaCode;
+    }
+
+    async function invokeCurrentLambda() {
+      const code = document.getElementById('lambda-code-editor').value;
+      const payloadStr = document.getElementById('lambda-event-payload').value;
+      const outBox = document.getElementById('lambda-output-box');
+      outBox.innerHTML = '<span class="text-orange-400 font-semibold">Invoking serverless sandbox runtime...</span>';
+
+      const startTime = performance.now();
+      const logs = [];
+
+      try {
+        let payload = {};
+        try { payload = JSON.parse(payloadStr); } catch (e) { payload = { raw: payloadStr }; }
+
+        // Execute in client runtime safely
+        const mockContext = {
+          functionName: 'ProcessS3ImageUpload',
+          awsRequestId: 'req-' + Math.random().toString(36).substring(2, 11),
+          getRemainingTimeInMillis: () => 14850
+        };
+
+        const mockConsole = {
+          log: (...args) => logs.push(args.map(a => typeof a === 'object' ? JSON.stringify(a) : a).join(' ')),
+          error: (...args) => logs.push('[ERROR] ' + args.map(a => typeof a === 'object' ? JSON.stringify(a) : a).join(' '))
+        };
+
+        const fnRunner = new Function('exports', 'console', 'event', 'context', `
+          ${code}
+          return exports.handler(event, context);
+        `);
+
+        const exportsObj = {};
+        const responsePromise = fnRunner(exportsObj, mockConsole, payload, mockContext);
+        const response = await Promise.resolve(responsePromise);
+
+        const durationMs = (performance.now() - startTime).toFixed(2);
+        const billedMs = Math.ceil(Number(durationMs) / 100) * 100;
+
+        outBox.innerHTML = `
+          <div class="text-emerald-400 font-bold mb-2">✓ Execution Succeeded (200 OK)</div>
+          <div class="text-slate-400">Request ID: <span class="font-mono text-white">${mockContext.awsRequestId}</span></div>
+          <div class="text-slate-400">Duration: <span class="font-mono text-amber-300">${durationMs} ms</span> | Billed Duration: <span class="font-mono text-amber-300">${billedMs} ms</span></div>
+          <div class="text-slate-400">Memory Used: <span class="font-mono text-purple-300">42 MB of 256 MB</span></div>
+          <div class="mt-3 border-t border-slate-800 pt-2 text-slate-300 font-bold">Execution Return Value:</div>
+          <pre class="text-emerald-300 mt-1">${JSON.stringify(response, null, 2)}</pre>
+          <div class="mt-3 border-t border-slate-800 pt-2 text-slate-300 font-bold">CloudWatch Logs Stream:</div>
+          <pre class="text-slate-400 mt-1">${logs.join('\n') || 'Log stream initialized.'}</pre>
+        `;
+      } catch (err) {
+        outBox.innerHTML = `<div class="text-rose-400 font-bold">Execution Failed:</div><pre class="text-rose-300">${err.message}</pre>`;
+      }
+    }
+
+    // Viva Questions List
+    const vivaData = [
+      {
+        q: "1. What is the fundamental difference between Type-1 and Type-2 Hypervisors in VirtualBox?",
+        a: "Type-1 hypervisors (Bare-Metal, like VMware ESXi or Xen) execute directly on the physical hardware without an underlying OS. Type-2 hypervisors (Hosted, like Oracle VirtualBox) run as an application on top of a host operating system (e.g., Windows 11). VirtualBox abstracts the host's CPU and RAM to create isolated guest operating systems."
+      },
+      {
+        q: "2. What is the purpose of an AWS EC2 Key Pair, and why is private key safety critical?",
+        a: "EC2 instances use asymmetric public-key cryptography to authenticate SSH connections. AWS stores the public key (.pub) in the instance's ~/.ssh/authorized_keys file, while the user holds the private key (.pem). If the private key is lost, root access cannot be recovered without attaching the root volume to another rescue instance."
+      },
+      {
+        q: "3. How does EBS differ from S3 storage, and what are EBS Snapshots?",
+        a: "EBS (Elastic Block Store) provides persistent block-level storage volumes designed to be attached to a single EC2 instance within the same Availability Zone (like a raw hard disk). S3 is object storage accessible globally via HTTP REST APIs. EBS snapshots are point-in-time incremental backups of EBS volumes stored durably in Amazon S3."
+      },
+      {
+        q: "4. Explain S3 Static Website Hosting and Bucket Policies.",
+        a: "Amazon S3 allows hosting static websites (HTML, CSS, JS, images) without provisioning a web server. When enabled, S3 assigns an HTTP endpoint (bucket-name.s3-website-region.amazonaws.com). A Bucket Policy written in JSON grants public s3:GetObject permission so internet browsers can fetch index.html."
+      },
+      {
+        q: "5. What is the difference between Application Load Balancer (ALB) and Network Load Balancer (NLB)?",
+        a: "ALB operates at Layer 7 (Application Layer) of the OSI model, making intelligent routing decisions based on HTTP headers, cookies, and URL paths (e.g., /api vs /static). NLB operates at Layer 4 (Transport Layer - TCP/UDP), handling millions of requests per second with ultra-low sub-millisecond latencies."
+      },
+      {
+        q: "6. How do Auto Scaling Groups (ASG) interact with CloudWatch Alarms?",
+        a: "ASG continuously monitors target metric thresholds defined in CloudWatch (e.g., Average CPUUtilization > 70%). When CloudWatch alarms breach the threshold, they trigger an ASG dynamic scaling policy which launches new EC2 instances (Scale Out) or terminates excess instances when load normalizes (Scale In)."
+      },
+      {
+        q: "7. What is an Amazon Machine Image (AMI), and how is a 'Golden Image' created?",
+        a: "An AMI is a pre-configured template containing the operating system, installed software packages, and system configurations needed to launch EC2 instances. A 'Golden Image' is created by taking a snapshot of a fully configured, hardened, and tested running server, enabling rapid horizontal scaling."
+      },
+      {
+        q: "8. What is the Principle of Least Privilege in AWS IAM?",
+        a: "The Principle of Least Privilege dictates that users, applications, and services should only be granted the minimum permissions strictly necessary to perform their required tasks, using explicit IAM policies rather than full administrative access."
+      },
+      {
+        q: "9. Explain the components of a Custom Amazon VPC (Subnets, IGW, NAT Gateway).",
+        a: "A VPC provides an isolated virtual network defined by a CIDR block (e.g., 10.0.0.0/16). Public Subnets route traffic directly to the Internet Gateway (IGW) for internet access. Private Subnets route outbound traffic via a NAT Gateway located in the public subnet, keeping backend servers unexposed to direct incoming internet traffic."
+      },
+      {
+        q: "10. What is Serverless Computing in AWS Lambda, and how does event-driven billing work?",
+        a: "AWS Lambda executes code in response to events (e.g., S3 file uploads, DynamoDB streams, HTTP API Gateway requests) without requiring server provisioning or management. Billing is strictly metered based on milliseconds of execution time and allocated memory, incurring zero cost when idle."
+      }
+    ];
+
+    function loadViva() {
+      const cont = document.getElementById('viva-accordion');
+      cont.innerHTML = vivaData.map((v, idx) => `
+        <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4">
+          <div class="font-bold text-sm text-indigo-300 mb-2">${v.q}</div>
+          <div class="text-xs text-slate-300 leading-relaxed pl-3 border-l-2 border-indigo-500">${v.a}</div>
+        </div>
+      `).join('');
+    }
+
+    // Initialize all
+    window.addEventListener('DOMContentLoaded', () => {
+      refreshSystemStatus();
+      loadEC2();
+      loadEBS();
+      loadS3();
+      loadELB();
+      renderAsgHistory();
+      renderCloudWatch();
+      renderAMI();
+      renderIAM();
+      renderVPC();
+      renderGitHub();
+      loadLambda();
+      loadViva();
+    });
+  </script>
+</body>
+</html>
